@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 
 namespace WinFormsApp1
@@ -214,8 +215,8 @@ namespace WinFormsApp1
             double int_num2 = 0;
             try
             {
-                int_num1 = double.Parse(num1.ToString());
-                int_num2 = double.Parse(num2.ToString());
+                int_num1 = double.Parse(num1.ToString(), CultureInfo.InvariantCulture);
+                int_num2 = double.Parse(num2.ToString(), CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
@@ -364,6 +365,48 @@ namespace WinFormsApp1
             label1.Text = Output.ToString();
             Switch_num = true;
             select = '%';
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+
+            Button button = (Button)sender;
+            char char_ = char.Parse(button.Text); 
+            StringBuilder curret_num = Switch_num ? num2 : num1;
+            if (curret_num.ToString().Contains("."))
+            {
+                return;
+            }
+            if (curret_num.Length == 0)
+            {
+                Output.Append("0" + char_);
+                if (Switch_num == false)
+                {
+
+                    num1.Append("0" + char_);
+                }
+                else
+                {
+                    num2.Append("0" + char_);
+                }
+            }
+            else
+            {
+                Output.Append(char_);
+                if (Switch_num == false)
+                {
+
+                    num1.Append(char_);
+                }
+                else
+                {
+                    num2.Append(char_);
+                }
+            }
+            label1.Text = Output.ToString();
+
+           // Switch_num = true;
+            //select = ',';
         }
     }
 }
